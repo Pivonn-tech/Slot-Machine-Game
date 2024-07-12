@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Welcome, {{ player.username }} to Pivon-Tech Slots</h1>
+    <p>Your balance is ${{ player.balance }}</p>
+    <a href="{{url_for('spin')}}">Spin The Slot Machine</a><br>
+    <a href="{{url_for('deposit')}}">Deposit Money</a><br>
+    <a href="{{ url_for('logout')}}">Logout</a>
+  </body>
+</html>
+  

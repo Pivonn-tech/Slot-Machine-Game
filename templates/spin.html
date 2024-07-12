@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slot Machine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 20px;
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .reel {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 10px;
+            background-color: #fff;
+            transition: transform 1s ease-in-out;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .message {
+            color: red;
+            font-size: 18px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .player-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+        .back-button a {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .back-button a:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+      .slot-machine {
+                flex-direction: column;
+            }
+            .reel {
+                width: 80px;
+                height: 80px;
+                font-size: 20px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Pivon-Tech Slots</h1>
+    <div class="slot-machine">
+      <div class="reel" id="reel1">
+        {{ reels[0] if reels else '' }}
+      </div>
+      <div class="reel" id="reel2">
+        {{ reels[1] if reels else '' }}
+      </div>
+      <div class="reel" id="reel3">
+        {{ reels[2] if reels else '' }}
+      </div>
+    </div>
+    <div class="result">
+      {% if message %}
+      <p class="message">
+        {{ message }}
+      </p>
+      {% elif winnings > 0 %}
+      <p>
+        You won: {{ winnings }}
+      </p>
+      {% else %}
+      <p>
+        You lost!
+      </p>
+      {% endif %}
+    </div>
+
+    <form method="POST">
+      <input type="number" name="bet" placeholder="Bet Amount" required>
+      <button type="submit">Spin</button>
+    </form>
+
+    <div class="player-info">
+      <h2>Player Information</h2>
+      <p>
+        Username: {{ player.username }}
+      </p>
+      <p>
+        Balance: {{ player.balance }}
+      </p>
+    </div>
+
+    <div class="back-button">
+      <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+
+    <script>
+      function animateReels() {
+        const reels = document.querySelectorAll('.reel');
+        reels.forEach(reel => {
+          reel.style.transform = 'rotate(360deg)';
+        });
+      }
+
+      document.querySelector('form').addEventListener('submit', function(event) {
+        animateReels();
+      });
+    </script>
+  </body>
+</html>
